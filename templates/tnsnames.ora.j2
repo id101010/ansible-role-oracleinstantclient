@@ -1,0 +1,24 @@
+{% if oic_databases is defined %}
+{% for db in oic_databases %}
+{{ db.sid }} =
+  (DESCRIPTION =
+    (ADDRESS =
+      (PROTOCOL = TCP)
+      (HOST = {{ db.host }})
+      (PORT = {{ db.port }})
+    )
+    (CONNECT_DATA=
+      (SERVICE_NAME={{ db.service_name }})
+    )
+  )
+{% endfor %}
+{% endif %}
+
+{% if oic_listener_host is defined and oic_listener_port is defined %}
+LISTENER =
+  (ADDRESS =
+    (PROTOCOL = TCP)
+    (HOST = {{ oic_listener_host }})
+    (PORT = {{ oic_listener_port }})
+  )
+{% endif %}

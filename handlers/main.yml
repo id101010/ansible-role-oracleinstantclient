@@ -1,0 +1,7 @@
+---
+
+- name: "run ldconfig"
+  command: "/sbin/ldconfig"
+  args:
+    creates: "/sbin/ldconfig"
+  become: True

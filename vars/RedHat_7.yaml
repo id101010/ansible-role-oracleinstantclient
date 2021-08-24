@@ -1,0 +1,4 @@
+---
+
+oic_dependencies:
+  - libaio 

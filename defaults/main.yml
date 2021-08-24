@@ -1,0 +1,30 @@
+---
+
+# oracle instant client ldpath variable
+oic_pkg_version: "19.8"
+oic_ld_library_path: "/usr/lib/oracle/{{ oic_pkg_version }}/client64/lib"
+oic_package_base_url: "https://download.oracle.com/otn_software/linux/instantclient/19800"
+oic_package_dest: "/tmp"
+
+# oracle instant client paths for env
+oic_subdirectory: "/usr/lib/oracle/{{ oic_pkg_version }}/client64"
+oic_config_path: "{{ oic_subdirectory }}/lib/network/admin"
+oic_bin_path: "{{ oic_subdirectory }}/bin"
+
+# oracle instant client user and group
+oic_user: oracle
+oic_user_id: 11000
+oic_group: oinstall
+oic_group_id: 11000
+
+# oracle instant client database connection parameters
+oic_databases:
+   - sid: TEST
+     host: testdb.mytestdb.com
+     port: 2322
+     service_name: TEST
+
+# oralce instant client installed packages
+oic_install_packages:
+ - { pkg_name: "oracle-instantclient19.8-basic-19.8.0.0.0-1.x86_64.rpm", pkg_hash: "sha256:c42159e5466c661cc85d7a4d062e98aa06dc84251eea9de10ba2ddf2a7ea37cd" }
+ - { pkg_name: "oracle-instantclient19.8-sqlplus-19.8.0.0.0-1.x86_64.rpm", pkg_hash: "sha256:436f74965d27894ce67242d6d155c41e3a561e959bf2ce8ba027931a29d63700" }

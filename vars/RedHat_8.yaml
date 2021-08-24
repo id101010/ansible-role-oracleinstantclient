@@ -1,0 +1,7 @@
+---
+
+# To install and use oracle instant client you'll need libnsl on rhel8 which is not listed as dependency.
+# See: https://access.redhat.com/solutions/4975641
+oic_dependencies:
+ - libnsl
+ - libaio

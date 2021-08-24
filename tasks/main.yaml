@@ -1,0 +1,24 @@
+---
+
+- name: load variables based on distribution type
+  include_vars: '{{ item }}'
+  with_first_found:
+    - '{{ ansible_distribution }}_{{ ansible_distribution_major_version }}.yaml'
+    - '{{ ansible_os_family }}.yaml'
+  tags:
+    - 'oic_vars'
+
+- name: import fetching tasks
+  import_tasks: fetch.yaml
+  tags:
+    - 'oic_fetch'
+
+- name: import installation tasks
+  import_tasks: install.yaml
+  tags:
+    - 'oic_install'
+
+- name: impost configuration tasks
+  import_tasks: config.yaml
+  tags:
+    - 'oic_config'

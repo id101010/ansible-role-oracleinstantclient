@@ -1,0 +1,21 @@
+---
+
+- name: install dependencies
+  yum:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ oic_dependencies }}"
+
+- name: install oracle instan client packages
+  yum:
+    name: "{{ oic_package_dest }}/{{ item.pkg_name }}"
+    state: present
+  loop: "{{ oic_install_packages }}"
+
+- name: make sure oracle client is in the library path
+  lineinfile:
+    dest: "/etc/ld.so.conf.d/oracle-instantclient.conf"
+    line: "{{ oic_ld_library_path }}"
+    insertbefore: "BOF"
+    create: True
+  notify: "run ldconfig"

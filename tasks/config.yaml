@@ -1,0 +1,34 @@
+---
+
+- name: ensure oracle instant client group exists
+  group:
+    state: present
+    name: "{{ oic_group }}"
+    gid: "{{ oic_group_id }}"
+
+- name: ensure oracle instant client user exists
+  user:
+    state: present
+    name: "{{ oic_user }}"
+    uid: "{{ oic_user_id }}"
+    group: "{{ oic_group }}"
+
+- name: ensure network/admin subdirectory exists
+  file:
+    path: "{{ oic_config_path }}"
+    state: directory
+    owner: root
+    group: root
+
+- name: update the $PATH variable for oracle binaries
+  copy:
+    dest: /etc/profile.d/custom-path.sh
+    content: 'PATH=$PATH:{{ oic_bin_path }}'
+
+- name: push tnsnames.ora
+  template:
+    src: tnsnames.ora.j2
+    dest: "{{ oic_config_path }}/tnsnames.ora"
+    mode: 0655
+    owner: "{{ oic_user }}"
+    group: "{{ oic_group }}"

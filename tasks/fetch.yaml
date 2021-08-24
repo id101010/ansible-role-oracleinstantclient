@@ -1,0 +1,8 @@
+---
+
+- name: fetch oracle instant client artifacts
+  get_url:
+    url: "{{ oic_package_base_url }}/{{ item.pkg_name }}"
+    dest: "{{ oic_package_dest }}"
+    checksum: "{{ item.pkg_hash }}"
+  loop: "{{ oic_install_packages }}"
